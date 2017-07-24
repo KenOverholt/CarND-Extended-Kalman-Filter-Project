@@ -36,7 +36,7 @@ FusionEKF::FusionEKF() {
     * Finish initializing the FusionEKF.
     * Set the process and measurement noises
   */
-  Hj = tools.CalculateJacobian(); //KRO set the actual function here
+  Hj = tools::CalculateJacobian(ekf_.x_); //KRO set the actual function here OR maybe set this during runtime
   H_laser_ << 1, 0, 0, 0,   // L10, S5
               0, 1, 0, 0;
   
@@ -147,7 +147,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 
   if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
     // Radar updates
-    ekf_.H_ = Hj; // KRO set to Hj which should be set using the Jacobian funciton in tools.cpp
+    ekf_.H_ = tools::CalculateJacobian(ekf_.x_); // KRO set to Hj which should be set using the Jacobian funciton in tools.cpp
     ekf_.R_ = R_radar;
     ekf_.UpdateEKF(measurement_pack.raw_measurements_);  //KRO
   } else {
