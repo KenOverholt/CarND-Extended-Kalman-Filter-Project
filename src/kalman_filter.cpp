@@ -53,10 +53,10 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
     * update the state by using Extended Kalman Filter equations
   */
   //L5s14
-  float x = ekf_.x_(0);
-  float y = ekf_.x_(1);
-  float vx = ekf_.x_(2);
-  float vy = ekf_.x_(3);
+  float x = x_(0);
+  float y = x_(1);
+  float vx = x_(2);
+  float vy = x_(3);
   
   float rho = sqrt(x*x+y*y);
   float theta = atan2(y, x);
