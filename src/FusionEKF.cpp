@@ -36,16 +36,16 @@ FusionEKF::FusionEKF() {
     * Finish initializing the FusionEKF.
     * Set the process and measurement noises
   */
-  Hj = tools::CalculateJacobian(ekf_.x_); //KRO set the actual function here OR maybe set this during runtime
+  Hj_ = tools.CalculateJacobian(ekf_.x_); //KRO set the actual function here OR maybe set this during runtime
   H_laser_ << 1, 0, 0, 0,   // L10, S5
               0, 1, 0, 0;
   
-  ekf_.F_ = ??;  //KRO 4x4 state transition matrix
-  ekf_.P_ = ??;  //KRO 4x4 matrix
+  ekf_.F_ = null;  //KRO 4x4 state transition matrix:  set real values
+  ekf_.P_ = null;  //KRO 4x4 matrix:  set real values
   
   // set the acceleration noise components
-  noise_ax = 9; // L5, sect 13, quiz 9
-  noise_ay = 9; // 
+  noise_ax_ = 9; // L5, sect 13, quiz 9
+  noise_ay_ = 9; // 
   //KRO finished TODO
 }
 
@@ -128,10 +128,10 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
   
   // set the process covariance matrix Q as in L5, s9
   ekf_.Q_ = MatrixXd(4, 4);
-  ekf_.Q_ << noise_ax*(dt_4/4), 0, noise_ax*(dt_3/2), 0,
-	     0, noise_ay*(dt_4/4), 0, noise_ay*(dt_3/2),
-             noise_ax*(dt_3/2), 0, noise_ax*dt_2, 0,
-             0, noise_ay*(dt_3/2), 0, noise_ay*dt_2;
+  ekf_.Q_ << noise_ax_*(dt_4/4), 0, noise_ax_*(dt_3/2), 0,
+	     0, noise_ay_*(dt_4/4), 0, noise_ay_*(dt_3/2),
+             noise_ax_*(dt_3/2), 0, noise_ax_*dt_2, 0,
+             0, noise_ay_*(dt_3/2), 0, noise_ay_*dt_2;
   
   ekf_.Predict();
 
