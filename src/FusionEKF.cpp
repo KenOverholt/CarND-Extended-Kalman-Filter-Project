@@ -36,9 +36,11 @@ FusionEKF::FusionEKF() {
     * Finish initializing the FusionEKF.
     * Set the process and measurement noises
   */
+  cout << "FusionEKF constructor 1";
   Hj_ = tools.CalculateJacobian(ekf_.x_); //KRO set the actual function here OR maybe set this during runtime
   H_laser_ << 1, 0, 0, 0,   // L10, S5
               0, 1, 0, 0;
+  cout << "FusionEKF constructor 2";
 
   //KRO 4x4 state transition matrix
   ekf_.F_ = MatrixXd(4, 4);
@@ -53,7 +55,8 @@ FusionEKF::FusionEKF() {
             0, 1, 0, 0,
             0, 0, 1000, 0,
 	    0, 0, 0, 1000;
-  
+  cout << "FusionEKF constructor 3";
+
   // set the acceleration noise components
   noise_ax_ = 9; // L5, sect 13, quiz 9
   noise_ay_ = 9; // 
@@ -82,6 +85,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     cout << "EKF: " << endl;
     ekf_.x_ = VectorXd(4);
     ekf_.x_ << 1, 1, 1, 1;  //KRO important for RMSE; first two will be overwritten but should play with the last 2
+    cout << "FusionEKF ProcessMeasurement 1";
 
     if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
       /**
@@ -89,8 +93,11 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       */
       //measurement_pack.raw_measurements_(0) is rho
       //measurement_pack.raw_measurements_(1) is theta
+    cout << "FusionEKF ProcessMeasurement 2";
       ekf_.x_(0) = measurement_pack.raw_measurements_(0) * cos(measurement_pack.raw_measurements_(1)); //KRO 
+      cout << "FusionEKF ProcessMeasurement 3";
       ekf_.x_(1) = measurement_pack.raw_measurements_(0) * sin(measurement_pack.raw_measurements_(1)); //KRO
+      cout << "FusionEKF ProcessMeasurement 4";
     }
     else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
       /**
@@ -98,7 +105,10 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       */
       //measurement_pack.raw_measurements_(0) is x
       //measurement_pack.raw_measurements_(1) is y
+      cout << "FusionEKF ProcessMeasurement 5";
+
       ekf_.x_(0) = measurement_pack.raw_measurements_(0); //KRO
+      cout << "FusionEKF ProcessMeasurement 6";
       ekf_.x_(1) = measurement_pack.raw_measurements_(1); //KRO
     }
 
