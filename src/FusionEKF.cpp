@@ -49,7 +49,7 @@ FusionEKF::FusionEKF() {
 
   //KRO 4x4 matrix:  set real values
   ekf_.P_ = MatrixXd(4, 4);
-  kf_.P_ << 1, 0, 0, 0,
+  ekf_.P_ << 1, 0, 0, 0,
             0, 1, 0, 0,
             0, 0, 1000, 0,
 	    0, 0, 0, 1000;
