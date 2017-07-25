@@ -34,15 +34,15 @@ void KalmanFilter::Update(const VectorXd &z) {
     * update the state by using Kalman Filter equations
   */
   //L5s7
-  VectorXd y = z - H * x;
-  MatrixXd Ht = H.transpose();
-  MatrixXd S = H * P * Ht + R;
+  VectorXd y = z - H_ * x_;
+  MatrixXd Ht = H_.transpose();
+  MatrixXd S = H_ * P_ * Ht + R_;
   MatrixXd Si = S.inverse();
-  MatrixXd K =  P * Ht * Si;
+  MatrixXd K =  P_ * Ht * Si;
 
   //new state
-  x = x + (K * y);
-  P = (I - K * H) * P;
+  x_ = x_ + (K * y);
+  P_ = (I - K * H_) * P_;
 }
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
@@ -64,12 +64,12 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   VectorXd y = z - z_pred;
   
   //KRO L5s7
-  MatrixXd Ht = H.transpose();
-  MatrixXd S = H * P * Ht + R;
+  MatrixXd Ht = H_.transpose();
+  MatrixXd S = H_ * P_ * Ht + R_;
   MatrixXd Si = S.inverse();
-  MatrixXd K =  P * Ht * Si;
+  MatrixXd K =  P_ * Ht * Si;
 
   //new state
   x = x + (K * y);
-  P = (I - K * H) * P;
+  P_ = (I - K * H_) * P_;
 }
