@@ -39,9 +39,20 @@ FusionEKF::FusionEKF() {
   Hj_ = tools.CalculateJacobian(ekf_.x_); //KRO set the actual function here OR maybe set this during runtime
   H_laser_ << 1, 0, 0, 0,   // L10, S5
               0, 1, 0, 0;
-  
-  ekf_.F_ = NULL;  //KRO 4x4 state transition matrix:  set real values
-  ekf_.P_ = NULL;  //KRO 4x4 matrix:  set real values
+
+  //KRO 4x4 state transition matrix
+  ekf_.F_ = MatrixXd(4, 4);
+  ekf_.F_ << 1, 0, 1, 0,
+             0, 1, 0, 1,
+             0, 0, 1, 0,
+	     0, 0, 0, 1;
+
+  //KRO 4x4 matrix:  set real values
+  ekf_.P_ = MatrixXd(4, 4);
+  kf_.P_ << 1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1000, 0,
+	    0, 0, 0, 1000;
   
   // set the acceleration noise components
   noise_ax_ = 9; // L5, sect 13, quiz 9
