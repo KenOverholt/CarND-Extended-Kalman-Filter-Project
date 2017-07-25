@@ -56,7 +56,8 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
     * Calculate a Jacobian here.
   */
   //L5s19
-  
+  cout << "Inside Jacobian" << endl;
+  cout << "  x_state: " << x_state;
   MatrixXd Hj(3,4);
 	//recover state parameters
 	float px = x_state(0);
