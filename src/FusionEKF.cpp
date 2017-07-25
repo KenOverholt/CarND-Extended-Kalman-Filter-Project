@@ -36,11 +36,15 @@ FusionEKF::FusionEKF() {
     * Finish initializing the FusionEKF.
     * Set the process and measurement noises
   */
-  cout << "FusionEKF constructor 1";
-  Hj_ = tools.CalculateJacobian(ekf_.x_); //KRO set the actual function here OR maybe set this during runtime
+  cout << "FusionEKF constructor 1" << endl;
+  //KRO set initial x_predicted value
+  //KRO px = 1, py = 2, vx = 0.2, vy = 0.4
+  VectorXd x_predicted(4);  //KRO
+  x_predicted << 1, 2, 0.2, 0.4; //KRO
+  Hj_ = tools.CalculateJacobian(x_predicted); //KRO set the actual function here OR maybe set this during runtime
   H_laser_ << 1, 0, 0, 0,   // L10, S5
               0, 1, 0, 0;
-  cout << "FusionEKF constructor 2";
+  cout << "FusionEKF constructor 2" << endl;
 
   //KRO 4x4 state transition matrix
   ekf_.F_ = MatrixXd(4, 4);
@@ -55,7 +59,7 @@ FusionEKF::FusionEKF() {
             0, 1, 0, 0,
             0, 0, 1000, 0,
 	    0, 0, 0, 1000;
-  cout << "FusionEKF constructor 3";
+  cout << "FusionEKF constructor 3" << endl;
 
   // set the acceleration noise components
   noise_ax_ = 9; // L5, sect 13, quiz 9
@@ -93,11 +97,11 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       */
       //measurement_pack.raw_measurements_(0) is rho
       //measurement_pack.raw_measurements_(1) is theta
-    cout << "FusionEKF ProcessMeasurement 2";
+    cout << "FusionEKF ProcessMeasurement 2" << endl;
       ekf_.x_(0) = measurement_pack.raw_measurements_(0) * cos(measurement_pack.raw_measurements_(1)); //KRO 
-      cout << "FusionEKF ProcessMeasurement 3";
+      cout << "FusionEKF ProcessMeasurement 3" << endl;
       ekf_.x_(1) = measurement_pack.raw_measurements_(0) * sin(measurement_pack.raw_measurements_(1)); //KRO
-      cout << "FusionEKF ProcessMeasurement 4";
+      cout << "FusionEKF ProcessMeasurement 4" << endl;
     }
     else if (measurement_pack.sensor_type_ == MeasurementPackage::LASER) {
       /**
@@ -105,10 +109,10 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
       */
       //measurement_pack.raw_measurements_(0) is x
       //measurement_pack.raw_measurements_(1) is y
-      cout << "FusionEKF ProcessMeasurement 5";
+      cout << "FusionEKF ProcessMeasurement 5" << endl;
 
       ekf_.x_(0) = measurement_pack.raw_measurements_(0); //KRO
-      cout << "FusionEKF ProcessMeasurement 6";
+      cout << "FusionEKF ProcessMeasurement 6" << endl;
       ekf_.x_(1) = measurement_pack.raw_measurements_(1); //KRO
     }
 
