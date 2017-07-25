@@ -40,8 +40,8 @@ FusionEKF::FusionEKF() {
   H_laser_ << 1, 0, 0, 0,   // L10, S5
               0, 1, 0, 0;
   
-  ekf_.F_ = null;  //KRO 4x4 state transition matrix:  set real values
-  ekf_.P_ = null;  //KRO 4x4 matrix:  set real values
+  ekf_.F_ = NULL;  //KRO 4x4 state transition matrix:  set real values
+  ekf_.P_ = NULL;  //KRO 4x4 matrix:  set real values
   
   // set the acceleration noise components
   noise_ax_ = 9; // L5, sect 13, quiz 9
@@ -116,7 +116,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
    */
 
   float dt = (measurement_pack.timestamp_ - previous_timestamp_) / 1000000.0; //dt expressed in seconds
-  previous_timestamp_ = mesurement_pack.timestamp_;
+  previous_timestamp_ = measurement_pack.timestamp_;
   
   float dt_2 = dt * dt;
   float dt_3 = dt_2 * dt;
