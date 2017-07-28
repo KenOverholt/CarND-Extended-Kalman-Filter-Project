@@ -82,7 +82,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     */
     // first measurement
     ekf_.x_ = VectorXd(4);
-    ekf_.x_ << 1, 1, 1, 1;  //KRO important for RMSE; first two will be overwritten but I should play with the last 2
+    ekf_.x_ << 1, 1, 0, 0;  //KRO important for RMSE; first two will be overwritten but I should play with the last 2
 
     if (measurement_pack.sensor_type_ == MeasurementPackage::RADAR) {
       /**
