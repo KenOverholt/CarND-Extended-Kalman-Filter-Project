@@ -59,12 +59,14 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   float vy = x_(3);
   
   float rho = sqrt(x*x+y*y);
-  float theta = atan2(y, x);
+  float phi = atan2(y, x);
+  //angle = atan2(sin(angle),cos(angle));
   float rho_dot = (x*vx+y*vy)/rho;
   VectorXd z_pred = VectorXd(3);
-  z_pred << rho, theta, rho_dot;
+  z_pred << rho, phi, rho_dot;
   
   VectorXd y2 = z - z_pred;
+  cout << "y2: " << y2 << endl;
   
   //KRO L5s7
   MatrixXd Ht = H_.transpose();
