@@ -21,7 +21,6 @@ void KalmanFilter::Init(VectorXd &x_in, MatrixXd &P_in, MatrixXd &F_in,
 
 void KalmanFilter::Predict() {
   /**
-  TODO:
     * predict the state
   */
 	x_ = F_ * x_; //KRO L5s8
@@ -32,7 +31,6 @@ void KalmanFilter::Predict() {
 
 void KalmanFilter::Update(const VectorXd &z) {
   /**
-  TODO:
     * update the state by using Kalman Filter equations
   */
   //L5s7
@@ -51,7 +49,6 @@ void KalmanFilter::Update(const VectorXd &z) {
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
   /**
-  TODO:
     * update the state by using Extended Kalman Filter equations
   */
   //L5s14
@@ -62,12 +59,13 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   
   float rho = sqrt(x*x+y*y);
   float phi = atan2(y, x);
-  float angle = atan2(sin(phi),cos(phi));
   float rho_dot = (x*vx+y*vy)/rho;
   VectorXd z_pred = VectorXd(3);
-  z_pred << rho, angle, rho_dot;
+  z_pred << rho, phi, rho_dot;
   
   VectorXd y2 = z - z_pred;
+  //normalize the angle
+  y2[1] = atan2(sin(y2[1]),cos(y2[1]))
   cout << "y2: " << y2 << endl;
   
   //KRO L5s7
