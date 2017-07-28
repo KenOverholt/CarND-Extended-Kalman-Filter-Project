@@ -126,9 +126,9 @@ int main()
 
     	  VectorXd RMSE = tools.CalculateRMSE(estimations, ground_truth);
 	  if (RMSE[0] > .11) std::cout << timestamp << " px: " << RMSE[0] << endl;
-	  if (RMSE[1] > .11) std::cout << timestamp << " py: " << RMSE[0] << endl;
-	  if (RMSE[2] > .52) std::cout << timestamp << " vx: " << RMSE[0] << endl;
-	  if (RMSE[3] > .52) std::cout << timestamp << " vy: " << RMSE[0] << endl;
+	  if (RMSE[1] > .11) std::cout << timestamp << " py: " << RMSE[1] << endl;
+	  if (RMSE[2] > .52) std::cout << timestamp << " vx: " << RMSE[2] << endl;
+	  if (RMSE[3] > .52) std::cout << timestamp << " vy: " << RMSE[3] << endl;
 
           json msgJson;
           msgJson["estimate_x"] = p_x;
