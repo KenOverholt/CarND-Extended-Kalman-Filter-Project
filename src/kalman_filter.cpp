@@ -62,10 +62,10 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   
   float rho = sqrt(x*x+y*y);
   float phi = atan2(y, x);
-  //angle = atan2(sin(angle),cos(angle));
+  float angle = atan2(sin(phi),cos(phi));
   float rho_dot = (x*vx+y*vy)/rho;
   VectorXd z_pred = VectorXd(3);
-  z_pred << rho, phi, rho_dot;
+  z_pred << rho, angle, rho_dot;
   
   VectorXd y2 = z - z_pred;
   cout << "y2: " << y2 << endl;
