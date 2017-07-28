@@ -66,7 +66,6 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
   VectorXd y2 = z - z_pred;
   //normalize the angle
   y2[1] = atan2(sin(y2[1]),cos(y2[1]));
-  cout << "y2: " << y2 << endl;
   
   //KRO L5s7
   MatrixXd Ht = H_.transpose();
