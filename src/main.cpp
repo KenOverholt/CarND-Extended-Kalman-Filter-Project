@@ -7,6 +7,15 @@
 
 using namespace std;
 
+std::set_new_handler(outOfMemHandler);
+
+void outOfMemHandler()
+{
+    std::cerr << "Unable to satisfy request for memory\n";
+
+    std::abort();
+}
+
 // for convenience
 using json = nlohmann::json;
 
